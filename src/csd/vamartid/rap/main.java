@@ -16,7 +16,7 @@ public class main {
 	 * and 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Rap_univerce universe=new Rap_univerce(10,20);
 		universe.start();
 	}

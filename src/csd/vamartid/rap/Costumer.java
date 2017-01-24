@@ -9,7 +9,7 @@ public class Costumer implements Runnable {
     private int resourcesUsed;//resources he has used all time
     private String name;//name of the costumer
     private int timesWaited;//times the costumer left someone else go first
-
+    
     /**
      * the constructor of a costumer object which assigns him with a name and
      * the max number of the resources available' in order it will produce a
@@ -21,7 +21,7 @@ public class Costumer implements Runnable {
      */
     public Costumer(String name, int maxResources) {
         Random rand = new Random();
-        int resourcesNeed = rand.nextInt(maxResources);
+        int resourcesNeed = rand.nextInt(maxResources+1);
         //set a name
         setName(name);
         //set a number of the resources the costumer needs
@@ -85,10 +85,14 @@ public class Costumer implements Runnable {
      * get the resource used number
      */
     public String toString(){
-        return "COSTUMER-> "+" Name: " + getName() +
+        return "C-> "+"| " + getName() +
+                " | Need: " + getResourcesNeeded()+
+                " | Waited: " + getTimesWaited() +
+                " | Used: " + getResourcesUsed();
+                /*"COSTUMER-> "+" Name: " + getName() +
                 " Rneeded: " + getResourcesNeeded()+
                 " Twaited: " + getTimesWaited() +
-                " Rused: " + getResourcesUsed();
+                " Rused: " + getResourcesUsed();*/
     }
 
     public void resetTimesWaited() {

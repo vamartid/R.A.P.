@@ -60,49 +60,57 @@ public class Rap_univerce {
     //                        requests.add(new Request(this));
                     boolean done=false;
                     do{
+                        boolean doIt=true;
+                        if(getResourcesNeeded()==0){
+                            doIt=false;
+                        }
                         int free=0;
-//                        synchronized(resources){
-                            for(int j=0;j<resources.length;j++){
-                                if(resources[j].getState()==Resource.ResourceState.FREE){
-                                    free++;
-                                }
-                            }
-//                        }
-                        if(free>=this.getResourcesNeeded()){
-//                            int[] resourcesPos = new int[this.getResourcesNeeded()];
-//                            int pos=0;
-                            int allocated=0;
-                            boolean full=false;
-                            System.out.println("*"+getName());
-                            for(int j=0;(j<resources.length)&&(!full);j++){
-                                if(resources[j].getState()==Resource.ResourceState.FREE){
-                                    resources[j].setState(Resource.ResourceState.USED);
-                                    resources[j].setCurrentUser(this.getName());
-//                                    resourcesPos[pos]=j;
-                                    System.out.println(resources[j].toString());
-//                                    pos++;
-                                    allocated++;
-                                    if(this.getResourcesNeeded()==allocated){
-                                        full=true;
+                        if(doIt){
+//                            synchronized(resources){
+                                for(int j=0;j<resources.length;j++){
+                                    if(resources[j].getState()==Resource.ResourceState.FREE){
+                                        free++;
                                     }
                                 }
-                            }
-                            System.out.println("_"+getName());
-                            for(int j=0;j<resources.length;j++){
-                                if(resources[j].getCurrentUser()==this.getName()){
-                                    resources[j].increaseTimeUsed();
-                                    resources[j].setState(Resource.ResourceState.FREE);
-                                    resources[j].setCurrentUser("");
-                                    System.out.println(resources[j].toString());
+//                            }
+                        }
+                        if(free>=this.getResourcesNeeded()){
+                            if(doIt){
+                                int[] resPos = new int[free];
+                                int allocated=0;
+                                boolean full=false;
+//                                System.out.println("*"+getName());
+                                for(int j=0;(j<resources.length)&&(!full);j++){
+                                    if(resources[j].getState()==Resource.ResourceState.FREE){
+                                        resources[j].setState(Resource.ResourceState.USED);
+                                        resources[j].setCurrentUser(this.getName());
+//                                        System.out.println(this.getName()+"--?>"+allocated+"-->"+resPos.length+" "+getResourcesNeeded());
+                                        resPos[allocated]=j;
+                                        allocated++;
+                                        if(this.getResourcesNeeded()==allocated){
+                                            full=true;
+                                        }
+//                                        System.out.println(resources[j].toString());
+                                    }
                                 }
+//                                System.out.println("_"+getName());
+                                for(int j=0;j<resources.length;j++){
+                                    if(resources[j].getCurrentUser()==this.getName()){
+                                        resources[j].increaseTimeUsed();
+                                        resources[j].setState(Resource.ResourceState.FREE);
+                                        resources[j].setCurrentUser("");
+//                                        System.out.println(resources[j].toString());
+                                    }
+                                }
+                                this.setResourcesUsed(this.getResourcesNeeded()+this.getResourcesUsed());
+//                                System.out.println("+"+getName());
+//                                System.out.println(this.toString());
                             }
-                            this.setResourcesUsed(this.getResourcesNeeded()+this.getResourcesUsed());
-                            System.out.println("+"+getName());
-                            System.out.println(this.toString());
                             done=true;
 //                            this.notifyAll();
                             this.randomNeeds(resources.length);
                         }else{
+                            increaseTimesWaited();
 //                            synchronized(this){
 //                                try {
 //                                    this.wait();
@@ -111,7 +119,7 @@ public class Rap_univerce {
 //                                }
 //                            }
                         }
-                    }while(true);
+                    }while(!done);
                 }
             };
         }
@@ -123,12 +131,15 @@ public class Rap_univerce {
             tmp[i] = new Thread(costumers[i]);
             tmp[i].start();
         }
+//        for (int i = 0; i < costumers.length; i++) {
+//            tmp[i].join();
+//        }
+//        for (int i = 0; i < resources.length; i++) {
+//            System.out.println(resources[i].toString());
+//        }
         for (int i = 0; i < costumers.length; i++) {
-            tmp[i].join();
+            System.out.println(costumers[i].toString());
         }
-        for (int i = 0; i < resources.length; i++) {
-            System.out.println(resources[i].toString());
-        }
-        System.out.println("=== Running ===");
+//        System.out.println("=== Running ===");
     }
 }

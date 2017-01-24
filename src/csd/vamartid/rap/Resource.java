@@ -85,10 +85,14 @@ public class Resource {
     }
     
     public String toString(){
-        return "RESOURCE-> "+" Name: "+ getName() +
+        return "R-> "+"| "+ getName() +
+                " | " + getState() +
+                " | User " + getCurrentUser() +
+                " | Used " + getTimeUsed();
+                /*"RESOURCE-> "+" Name: "+ getName() +
                 " State " + getState() +
                 " User " + getCurrentUser() +
-                " TimesUsed " + getTimeUsed();
+                " TimesUsed " + getTimeUsed();*/
     }
 //    /**
 //     * get the resource set the resource state property to used use increase the
