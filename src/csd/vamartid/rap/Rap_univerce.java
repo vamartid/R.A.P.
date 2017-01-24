@@ -96,13 +96,13 @@ public class Rap_univerce {
 //                                System.out.println("_"+getName());
                                 for(int j=0;j<resources.length;j++){
                                     if(resources[j].getCurrentUser()==this.getName()){
-                                        resources[j].increaseTimeUsed();
                                         resources[j].setState(Resource.ResourceState.FREE);
                                         resources[j].setCurrentUser("");
+                                        resources[j].increaseTimeUsed();
 //                                        System.out.println(resources[j].toString());
+                                        increaseResourcesUsed();
                                     }
                                 }
-                                this.setResourcesUsed(this.getResourcesNeeded()+this.getResourcesUsed());
 //                                System.out.println("+"+getName());
 //                                System.out.println(this.toString());
                             }
@@ -131,9 +131,9 @@ public class Rap_univerce {
             tmp[i] = new Thread(costumers[i]);
             tmp[i].start();
         }
-//        for (int i = 0; i < costumers.length; i++) {
-//            tmp[i].join();
-//        }
+        for (int i = 0; i < costumers.length; i++) {
+            tmp[i].join();
+        }
 //        for (int i = 0; i < resources.length; i++) {
 //            System.out.println(resources[i].toString());
 //        }

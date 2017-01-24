@@ -73,7 +73,9 @@ public class Costumer implements Runnable {
     public void setResourcesUsed(int resourceUsed) {
         this.resourcesUsed = resourceUsed;
     }
-
+    public void increaseResourcesUsed() {
+        this.resourcesUsed++;
+    }
     /**
      * get the resource used number
      */
