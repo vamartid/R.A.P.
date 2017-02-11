@@ -1,6 +1,8 @@
 package csd.vamartid.rap;
 
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Costumer implements Runnable {
     //Resource Object fields
@@ -108,10 +110,20 @@ public class Costumer implements Runnable {
         return timesWaited;
     }
     
-    
     public void randomNeeds(int num) {
         Random randomObj=new Random();
         setResourcesNeeded(randomObj.nextInt(num));
+    }
+    
+    public void psevdoCallculate() {
+        Random random_object=new Random();
+        int sleepTime = random_object.nextInt(200);
+        try {
+            Thread.sleep(sleepTime);
+        } catch (InterruptedException ex) {
+            System.err.println(this.getName()+" couldn't psevdoCallculate(sleep).");
+            Logger.getLogger(Costumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
