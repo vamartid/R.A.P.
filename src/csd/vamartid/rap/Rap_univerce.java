@@ -90,22 +90,23 @@ public class Rap_univerce {
 				}
 
 				private boolean core(boolean done) {
-					System.out.println(this.getName());
+					System.out.println(this.getName()+" is on the store asking for resources");
 					lock.lock();
 					try {
 						if (this.getResourcesNeeded() != 0) {
 							free = findFreeNumberOfResources();
-							while (findFreeNumberOfResources() < this.getResourcesNeeded()) {
+							while (free < this.getResourcesNeeded()) {
 								try {
 									this.increaseTimesWaited();
-									System.out.println(this.getName()+" Wants to sleep");
+									System.out.println(this.getName()+" Wants to sleep.");
 									lockContition.await();
-									System.out.println(this.getName()+" Wake ups");
+									System.out.println(this.getName()+" Wake ups.");
 								} catch (InterruptedException e) {
 									e.printStackTrace();
-								}			
+								}
+                                                                free = findFreeNumberOfResources();
 							}
-							System.out.println(this.getName() + " " + this.getResourcesNeeded() + "/" + free+"/"+resources.length);
+							System.out.println(this.getName() + " is taking " + this.getResourcesNeeded() + " of the " + free+" free from all "+resources.length+" resources");
 							int[] possitions = allocateResourcesAndGetPossitions();
 //							System.out.println(this.getName() + " " + Arrays.toString(possitions));
 							lock.unlock();
@@ -129,29 +130,6 @@ public class Rap_univerce {
 				@Override
 				public void run() {
 					boolean done = false;
-//					do {
-//						done = core(done);
-//						// if (this.getResourcesNeeded() != 0) {
-//						// free = findFreeNumberOfResources();
-//						// if (free >= this.getResourcesNeeded()) {
-//						// System.out.println(this.getName() + " " +
-//						// this.getResourcesNeeded() + "/" + free);
-//						// int[] possitions =
-//						// allocateResourcesAndGetPossitions();
-//						// System.out.println(this.getName() + " " +
-//						// Arrays.toString(possitions));
-//						// psevdoCallculate();
-//						// freeResourcesAccordingPossitions(possitions);
-//						// done = true;
-//						// } else {
-//						// increaseTimesWaited();
-//						// }
-//						// } else {
-//						// done = true;
-//						// }
-//
-//						// this.randomNeeds(resources.length);
-//					} while (!done);
 					core(done);
 				}
 			};
@@ -159,7 +137,8 @@ public class Rap_univerce {
 	}
 
 	public void start() throws InterruptedException {
-		Thread[] tmp = new Thread[costumers.length];
+		System.out.println("|####[>On the run<]####|");
+                Thread[] tmp = new Thread[costumers.length];
 		for (int i = 0; i < costumers.length; i++) {
 			tmp[i] = new Thread(costumers[i]);
 			tmp[i].start();
@@ -170,6 +149,7 @@ public class Rap_univerce {
 		// for (int i = 0; i < resources.length; i++) {
 		// System.out.println(resources[i].toString());
 		// }
+                System.out.println("|####[>Stats<]####|");
 		for (int i = 0; i < costumers.length; i++) {
 			System.out.println(costumers[i].toString());
 		}
