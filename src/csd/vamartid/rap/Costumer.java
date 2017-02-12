@@ -3,7 +3,18 @@ package csd.vamartid.rap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * Costumer has these fields
+ * at first resourcesNeed which is the number of the resources it needs to do it's job
+ * secondly the resourcesUsed which is the number of the total resources it used
+ * name which is the costumer name
+ * timesWaited which is the number of the times it needed to wait of lack of free resources.
+ * 
+ * @author vamartid
+ *
+ * This project is under the GNU GPLV3 for more info check the LICENSE file.
+ *
+ */
 public class Costumer implements Runnable {
     //Resource Object fields
 
@@ -98,23 +109,44 @@ public class Costumer implements Runnable {
                 " Twaited: " + getTimesWaited() +
                 " Rused: " + getResourcesUsed();*/
     }
-
+    
+    /**
+     * reset the times waited variabe
+     */
     public void resetTimesWaited() {
         this.timesWaited = 0;
     }
     
+    /*
+     * increase the timesWaited by one
+     */
     public void increaseTimesWaited() {
         this.timesWaited++;
     }
+    
+    /**
+     *  returns the timesWaited
+     * @return
+     */
     public int getTimesWaited() {
         return timesWaited;
     }
     
+    /**
+     * set a new value for the resourcesNeed variable
+     * @param num
+     */
     public void randomNeeds(int num) {
         Random randomObj=new Random();
         setResourcesNeeded(randomObj.nextInt(num));
     }
     
+    /**
+     * generate a number up to 200
+     * and sleeps for it
+     * this action represent the calculation
+     * that the thread needed the resources for
+     */
     public void psevdoCallculate() {
         Random random_object=new Random();
         int sleepTime = random_object.nextInt(200);
@@ -131,4 +163,5 @@ public class Costumer implements Runnable {
      */
     @Override
     public void run() {}
+
 }

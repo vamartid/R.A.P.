@@ -1,5 +1,18 @@
 package csd.vamartid.rap;
-
+/**
+ * Resource object
+ * has a state (FREE of USED)
+ * used is when it's alocated from a costumer runnable
+ * free is when it's not
+ * a times used which represents how many times the object has been alocated
+ * a user which is the name of the user that is currently using it
+ * and last a name which is the name of the resource
+ * 
+ * @author vamartid
+ *
+ * This project is under the GNU GPLV3 for more info check the LICENSE file.
+ *
+ */
 public class Resource {
     //Resource Object fields
 
@@ -84,6 +97,9 @@ public class Resource {
         return user;
     }
     
+    /**
+     * prints info of the resource
+     */
     public String toString(){
         return "R-> "+"| "+ getName() +
                 " | " + getState() +
@@ -94,17 +110,5 @@ public class Resource {
                 " User " + getCurrentUser() +
                 " TimesUsed " + getTimeUsed();*/
     }
-//    /**
-//     * get the resource set the resource state property to used use increase the
-//     * number which gives the times a resource was used free set the resource
-//     * state to free i order other costumers can use it
-//     */
-//    public void getUseAndFree() {
-//        //set the resource as used
-//        setState(ResourceState.USED);
-//        //use
-//        increaseTimeUsed();
-//        //set the resource as free
-//        setState(ResourceState.FREE);
-//    }
+
 }
